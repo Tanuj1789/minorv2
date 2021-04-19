@@ -3,18 +3,28 @@
 
     <div v-if="show==true" class="flex-column" >
         <div >
-        <h3> Sign-in</h3>
+          <nav>
+            <ul>
+              <li>
+            Sign-in
+            <span></span><span></span><span></span><span></span>
+          </li>
+          </ul>
+          </nav>
+        <br>
         <form @submit.prevent="addEmail()"  class="flex-column">
         <input type="text" placeholder="enter nickname" v-model="name"/>
         <input type="email" placeholder="enter email" v-model="email"/>
         <!-- <input type="password" v-model="password"> -->
         <!-- <button @click="vfun" > Submit </button> -->
-        <button
+        <div style="margin-top:10%;margin-left:50%; ">
+        <button type="submit"
         >
         Submit </button>
-        </form>
         </div>
-        <button @click="toggle"> Login Instead </button>
+        </form>
+        <button @click="toggle" style="margin-left:50%;margin-top:2%;"> Login Instead </button>
+        </div>
         <!-- <div v-for="pname in listofnames" v-bind:key="pname.email">
         {{ pname.name }}
         <div>
@@ -25,17 +35,28 @@
 
     <div v-else class="flex-column" >
         <div >
-        <h3> Log-in</h3>
+        <nav>
+            <ul>
+              <li>
+            Log-in
+            <span></span><span></span><span></span><span></span>
+          </li>
+          </ul>
+          </nav>
+          <br>
         <form @submit.prevent="checkEmail()"  class="flex-column">
         <input type="email" placeholder="enter email" v-model="email"/>
         <input type="password" placeholder="enter password" v-model="password">
         <!-- <button @click="vfun" > Submit </button> -->
+        <div style="margin-top:10%;margin-left:50%; ">
         <button
         >
         Submit </button>
+        <button @click="toggle" style="margin-top:2%;"> Signup Instead </button>
+        </div>
         </form>
         </div>
-        <button @click="toggle"> Signup Instead </button>
+
         <!-- <div v-for="pname in listofnames" v-bind:key="pname.email">
         {{ pname.name }}
         <div>
@@ -229,6 +250,7 @@ a {
 }
 .inputbox {
   margin-top: 2%;
+
 }
 h2 {
   color: white;
@@ -268,6 +290,9 @@ input {
   font-weight: 400;
   font-size: 25px;
   background: #232526; /* fallback for old browsers */
+  margin-left:10%;
+  margin-top:2%;
+  width:80%;
   background: -webkit-linear-gradient(
     to right,
     #414345,
@@ -331,6 +356,41 @@ input:hover {
   filter:drop-shadow(0px 3px 10px white)
 }
 button{
-  
+  font-family: 'Ubuntu', sans-serif;
+  /* position: absolute; */
+    /* top: 50%; */
+  /* left: 50%; */
+  display:flex;
+     align-items: center;
+    justify-content: center;
+  flex-direction:column ;
+  transform: translate(-50%, -50%);
+  width: 170px;
+  height: 40px;
+  line-height: 1;
+  font-size: 18px;
+  font-weight: bold;
+  letter-spacing: 1px;
+  border: 3px solid black;
+  background: #fff;
+  color: black;
+  border-radius: 40px;
+  cursor: pointer;
+  overflow: hidden;
+  transition: all .35s;
+
 }
+
+button:hover{
+  background: #8C82FC;
+  background:grey;
+  color: #fff;
+}
+  /*
+  button span{
+    opacity: 1;
+    visibility: visible;
+    transition: all .35s;
+  } */
+
 </style>
