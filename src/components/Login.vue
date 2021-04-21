@@ -46,7 +46,7 @@
           <br>
         <form @submit.prevent="checkEmail()"  class="flex-column">
         <input type="email" placeholder="enter email" v-model="email"/>
-        <input type="password" placeholder="enter password" v-model="password">
+        <input type="password" placeholder="enter password" v-model="password"/>
         <!-- <button @click="vfun" > Submit </button> -->
         <div style="margin-top:10%;margin-left:50%; ">
         <button
@@ -110,7 +110,7 @@ export default {
         (user) => {
           this.$loggedin =true;
           console.log(this.$loggedin);
-          this.$emit('uname',this.name);
+          this.$emit('uname',{uName:this.name,dName:"Dr. Sanjay Singhania",sDate:"1/1/2020"});
           console.log(user);
 
             // this.name + ", your review has been successfully added";
@@ -152,7 +152,7 @@ export default {
           // console.log(this.msg);
           // if(this.msg.length!=0)
             // flag=false;
-          this.$emit('uname',this.name);
+          this.$emit('uname',{uName:this.name,dName:"Dr. Sanjay Singhania",sDate:"1/1/2020"});
       },
       async checkUser(){
         // console.log(this.name);

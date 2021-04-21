@@ -9,6 +9,7 @@ import VueRouter from 'vue-router';
 import Home from './components/Home.vue'
 import Sospage from './components/Sospage.vue'
 import Login from './components/Login.vue'
+import Survey from './components/Survey.vue'
 import Booksession from './components/Booksession.vue'
 Vue.use(BootstrapVue)
 Vue.use(IconsPlugin)
@@ -17,8 +18,8 @@ Vue.use(VueRouter);
 Vue.use(firestorePlugin);
 
 const routes=[
-  { path: '/',
-    component:Home
+  { path: '/Home',
+    component:Home,
   },
   { path: '/Login',
     component:Login
@@ -28,6 +29,9 @@ const routes=[
   },
   { path: '/Booksession',
     component:Booksession
+  },
+  { path: '/Survey',
+    component:Survey,
   },
 ];
 const router= new VueRouter({

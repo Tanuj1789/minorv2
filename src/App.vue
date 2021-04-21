@@ -1,21 +1,11 @@
 <template>
   <div id="app">
-  <div class="flex-row">
-  <div >
-    <nav>
-           <ul>
-         <li @click="fun">
-        {{username}}'s Space
-      <span></span><span></span><span></span><span></span>
-    </li>
-    </ul>
-    </nav>
-  </div>
+  <div class="flex-row flex-wrap" >
   <div>
     <nav>
            <ul>
          <li @click="setfalse" >
-          <router-link to="/" class="" > Home </router-link>
+           Home
       <span></span><span></span><span></span><span></span>
     </li>
     </ul>
@@ -24,7 +14,30 @@
   <div>
     <nav>
            <ul>
-         <li>
+         <li @click="fun" >
+            {{username}}'s Space
+             <Login @uname="uname"/>
+      <span></span><span></span><span></span><span></span>
+    </li>
+    </ul>
+    </nav>
+  </div>
+
+  <div v-if='this.username!="Guest"'>
+    <nav>
+           <ul>
+         <li @click="fun3" >
+            Survey
+      <span></span><span></span><span></span><span></span>
+    </li>
+    </ul>
+    </nav>
+  </div>
+
+  <div>
+    <nav>
+           <ul>
+         <li @click="fun2">
        <router-link to="/Sospage" class=""> SOS </router-link>
       <span></span><span></span><span></span><span></span>
     </li>
@@ -33,19 +46,19 @@
     </div>
   </div>
   <hr style="height:2px colour:black">
-  <div  v-if="show==true" >
-  <Login @uname="changename($event)"/>
+  <div  v-if="show==1" >
+       <Login @uname="uname"/>
   </div>
-  <div v-else>
-      <router-view> </router-view>
-    </div>
-     <div class="flex-row" >
-      <!-- <img src="@/assets/logo.png" class="circle"/>
-        <img src="@/assets/logo.png" class="circle"/>
-        <img src="@/assets/logo.png" class="circle">
-        <img src="@/assets/logo.png" class="circle"/>
-        <img src="@/assets/logo.png" class="circle"/> -->
-    </div>
+  <div v-else-if="show==0">
+      <Home v-bind:doctor="doctor" v-bind:sDate="sDate"/>
+   </div>
+   <div v-else-if="show==3">
+     <Survey/>
+     </div>
+   <div v-else>
+      <Sospage/>
+   </div>
+
   </div>
 
 </template>
@@ -53,30 +66,52 @@
 <script>
 
 import Login from './components/Login.vue'
+import Home from './components/Home.vue'
+import Sospage from './components/Sospage.vue'
+import Survey from './components/Survey.vue'
 export default {
   name: 'App',
   components: {
     Login,
+    Home,
+    Sospage,
+    Survey,
   },
   data(){
     return {
       username:"Guest",
-      show:false,
+      show:0,
+      doctor: "Not Assigned",
+      sDate: "Not Scheculed"
     }
   },
   methods :{
-    changename(name,value){
+    uname({uName,dName,sDate}){
       console.log("insidechangename");
-      console.log(name);
-        this.username=name;
-        this.show=value;
+        this.username=uName;
+        this.doctor=dName;
+        this.sDate=sDate;
+        console.log(this.date);
+        console.log("from uname");
+        console.log(this.doctor);
+        this.show=!this.show;
     },
     fun(){
-      this.show=!this.show;
+      this.show=1;
       this.username="Guest";
+      this.doctor="Not Assigned";
+      this.sDate="Not Scheduled";
+    },
+    fun2()
+    {
+      this.show=2;
+    },
+    fun3()
+    {
+      this.show=3;
     },
     setfalse(){
-      this.show=false;
+      this.show=0;
       console.log(this.$loggedin);
     }
   }
@@ -103,7 +138,14 @@ background: linear-gradient(to right, #ffd194, #70e1f5); /* W3C, IE 10+/ Edge, F
 .flex-row{
   display:flex;
   justify-content: space-between;
-  flex-grow: 1;
+  align-content:center;
+  align-items:center;
+  flex-wrap:wrap;
+
+
+}
+.flex-wrap{
+  flex-wrap:wrap;
 }
 .flex-end{
   display:flex;

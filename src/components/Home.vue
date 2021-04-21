@@ -1,11 +1,10 @@
 <template>
   <div class="flex-column">
-
     <div class="flex-column" >
       <p> Selfcare Guide </p>
       <div class="flex-row space-between" style="flex-wrap:wrap">
         <div class="flex-column">
-            <div><a :href="urlmeditation" target="_blank"><img src="@/assets/2nd image.jpeg" class="circle border-r"/></a></div>
+            <div><a :href="urlmeditation" target="_blank"><img src="@/assets/2nd image.jpeg" class="circle border-r" @click="fun" /></a></div>
              <div> <p> Meditation</p></div>
         </div>
         <div class="flex-column">
@@ -29,8 +28,8 @@
         <div style="display:flex; flex-direction:column;justify-content:center;flex-grow:1">
         <nav>
            <ul>
-         <li>
-      Start a Chat
+         <li style="height:100%">
+     <a> Analyse Wellbeing </a>
       <span></span><span></span><span></span><span></span>
     </li>
     </ul>
@@ -41,53 +40,81 @@
     <br>
     <hr style="width:50%;height:2px;background-color:gray">
     <div class="flex-column" >
-      My Therapist
+
       <div class="flex-row">
-        <!-- <img src="@/assets/logo.png"/>
-        <div class="flex-column">
-        {{schedule}}
-        <b-button variant="outline-success" style="display:flex;width:100%;height:30%;align-self:center;justify-content:center;align-items:center;color:pink">Book Session </b-button>
-        </div>
-      </div>
-      {{Therapist}} -->
+
       <div class="flex-row" style="min-width:100%;">
         <div class="bigimage"></div>
-        <div style="display:flex; flex-direction:column;justify-content:center;flex-grow:1">
+        <div v-if="this.doctor=='Not Assigned'" style="display:flex; flex-direction:column;justify-content:center;flex-grow:1">
         <!-- <b-button pill variant="success" >Start A chat</b-button> -->
          <nav>
            <ul>
-         <li>
-        <router-link to="Booksession">Book Session</router-link>
+         <li style="width:80%">
+           Click on Guest's Space
       <span></span><span></span><span></span><span></span>
     </li>
     </ul>
     </nav>
-      </div>;
       </div>
+      <div v-else style="display:flex; flex-direction:column;justify-content:center;flex-grow:1">
+        {{doctor}}
+        <br>
+        {{sDate}}
+        <nav>
+           <ul>
+         <li @click="updateshow">
+        <router-link to="Booksession" >Change Details</router-link>
+      <span></span><span></span><span></span><span></span>
+    </li>
+    </ul>
+    </nav>
       </div>
-
     </div>
-<router-view></router-view>
+
+  </div>
+  <div v-if="this.show==true">
+  <router-view></router-view>
+  </div>
+    </div>
+
   </div>
 
 </template>
 
 <script>
+
 export default {
+
   name: 'Home',
-  props: {
-    user: String
+  props: ['doctor','sDate']
+,
+  components:{
+
+  },
+  methods:{
+    fun()
+    {
+      console.log("printing doctor");
+        console.log(this.doctor);
+
+    },
+    updateshow()
+    {
+      if(this.doctor!="Not Assigned")
+          this.show=!this.show;
+    }
   },
   data(){
     return {
-      schedule:"no upcoming",
-      Therapist:"not assigned",
+      show:false,
       urlmeditation: "https://markmanson.net/meditation/",
       urlremote: "https://www.flexjobs.com/employer-blog/how-companies-can-use-meditation/",
       urlstress: "https://www.berries.com/blog/stress-relief-activities",
       urlsleep: "https://www.psycom.net/sleep-deprivation-test/",
     }
-  }
+  },
+
+
 }
 </script>
 <style scoped>
