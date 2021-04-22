@@ -11,11 +11,13 @@ import Sospage from './components/Sospage.vue'
 import Login from './components/Login.vue'
 import Survey from './components/Survey.vue'
 import Booksession from './components/Booksession.vue'
+import Chatbox from './components/Chatbox.vue'
 Vue.use(BootstrapVue)
 Vue.use(IconsPlugin)
 Vue.config.productionTip = false
 Vue.use(VueRouter);
 Vue.use(firestorePlugin);
+import axios from 'axios'
 
 const routes=[
   { path: '/Home',
@@ -33,6 +35,9 @@ const routes=[
   { path: '/Survey',
     component:Survey,
   },
+  { path: '/Chatbox',
+    component:Chatbox,
+  },
 ];
 const router= new VueRouter({
   routes,
@@ -43,3 +48,4 @@ new Vue({
   router,
   render: h => h(App),
 }).$mount('#app')
+Vue.prototype.$axios = axios

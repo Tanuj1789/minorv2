@@ -43,7 +43,19 @@
     </li>
     </ul>
     </nav>
-    </div>
+  </div>
+
+    <div>
+    <nav>
+           <ul>
+         <li @click="fun4">
+       <router-link to="/Chatbox" class=""> Start Chat </router-link>
+      <span></span><span></span><span></span><span></span>
+    </li>
+    </ul>
+    </nav>
+  </div>
+
   </div>
   <hr style="height:2px colour:black">
   <div  v-if="show==1" >
@@ -54,6 +66,17 @@
    </div>
    <div v-else-if="show==3">
      <Survey/>
+     </div>
+    <div v-else-if="show==4">
+     <Chatbox/>
+     <iframe v-if="show==4"
+            style="border: none;"
+            height="600px"
+            width="400px"
+            src="https://widget.kommunicate.io/chat?appId=YOUR_APP_ID"
+            allow="microphone; geolocation;"
+        >
+      </iframe>
      </div>
    <div v-else>
       <Sospage/>
@@ -69,6 +92,7 @@ import Login from './components/Login.vue'
 import Home from './components/Home.vue'
 import Sospage from './components/Sospage.vue'
 import Survey from './components/Survey.vue'
+import Chatbox from './components/Chatbox.vue'
 export default {
   name: 'App',
   components: {
@@ -76,6 +100,7 @@ export default {
     Home,
     Sospage,
     Survey,
+    Chatbox,
   },
   data(){
     return {
@@ -84,6 +109,10 @@ export default {
       doctor: "Not Assigned",
       sDate: "Not Scheculed"
     }
+  },
+  mounted()
+    {
+
   },
   methods :{
     uname({uName,dName,sDate}){
@@ -109,6 +138,19 @@ export default {
     fun3()
     {
       this.show=3;
+    },
+    fun4()
+    {
+      (function(d, m){
+        var kommunicateSettings =
+            {"appId":"9a2713693424ef4fba721e8f62eed13f","popupWidget":true,"automaticChatOpenOnNavigation":true};
+        var s = document.createElement("script"); s.type = "text/javascript"; s.async = true;
+        s.src = "https://widget.kommunicate.io/v2/kommunicate.app";
+        var h = document.getElementsByTagName("head")[0]; h.appendChild(s);
+        window.kommunicate = m;
+        m._globals = kommunicateSettings;
+    })(document, window.kommunicate || {});
+      this.show=4;
     },
     setfalse(){
       this.show=0;
