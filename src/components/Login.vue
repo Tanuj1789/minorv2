@@ -1,6 +1,5 @@
 <template>
   <div>
-
     <div v-if="show==true" class="flex-column" >
         <div >
           <nav>
@@ -15,8 +14,6 @@
         <form @submit.prevent="addEmail()"  class="flex-column">
         <input type="text" placeholder="enter nickname" v-model="name"/>
         <input type="email" placeholder="enter email" v-model="email"/>
-        <!-- <input type="password" v-model="password"> -->
-        <!-- <button @click="vfun" > Submit </button> -->
         <div style="margin-top:10%;margin-left:50%; ">
         <button type="submit"
         >
@@ -25,14 +22,7 @@
         </form>
         <button @click="toggle" style="margin-left:50%;margin-top:2%;"> Login Instead </button>
         </div>
-        <!-- <div v-for="pname in listofnames" v-bind:key="pname.email">
-        {{ pname.name }}
-        <div>
-        {{listofnames}}
-      </div>
-    </div> -->
     </div>
-
     <div v-else class="flex-column" >
         <div >
         <nav>
@@ -56,13 +46,6 @@
         </div>
         </form>
         </div>
-
-        <!-- <div v-for="pname in listofnames" v-bind:key="pname.email">
-        {{ pname.name }}
-        <div>
-        {{listofnames}}
-      </div>
-    </div> -->
     </div>
   </div>
 </template>
@@ -81,6 +64,8 @@ export default {
         name:"",
         msg:"",
         password: "",
+        drname:'',
+        date : '',
         listofnames: [],
         show:true,
 
@@ -89,35 +74,27 @@ export default {
   props:{
   },
   methods:{
-    // vfun()
-    // {
-    //   console.log("vfun")
-    //   this.$emit('uname');
-    // },
-
     toggle()
     {
       this.show=!this.show,
       this.email="",
       this.name= "",
-      this.password= ""
+      this.password= "",
+      this.drname= '',
+      this.date = ''
     },
       addEmail(){
-        // console.log(this.name);
-        // console.log(this.$emit('updateusername'));
-
           auth.createUserWithEmailAndPassword(this.email, "12345678").then(
         (user) => {
           this.$loggedin =true;
           console.log(this.$loggedin);
-          this.$emit('uname',{uName:this.name,dName:"Dr. Sanjay Singhania",sDate:"1/1/2020"});
+          this.$emit('uname',{uName:this.name,email:this.email,dName:this.drname,sDate:this.date});
           console.log(user);
-
-            // this.name + ", your review has been successfully added";
           names.push({
             name: this.name,
             email: this.email,
-
+            drname:this.drname,
+            date: this.date,
           });
 
         },
@@ -126,48 +103,26 @@ export default {
           alert(this.msg);
         }
       );
-
-      // var p = [{ name: "", email: "" }];
-      // names.on("value", function (snapshot) {
-      //   snapshot.forEach(function (childsnapshot) {
-      //     var data = childsnapshot.val();
-      //     // console.log(data.email,data.name);
-      //     p.push({ name: data.name, email: data.email });
-      //     // console.log(p)
-      //   });
-      // });
-      // this.listofnames = p;
-      // // console.log('lois',this.listofnames);
-      // p = [];
-
       },
       async checkEmail()
       {
-        console.log("beforecheckuserexecuted")
-        console.log(this.name);
+        console.log("beforecheckuserexecuted yahan par ")
           await this.checkUser();
           console.log("checkuserexecuted")
-          console.log(this.name);
-          // var flag=false;
-          // console.log(this.msg);
-          // if(this.msg.length!=0)
-            // flag=false;
-          this.$emit('uname',{uName:this.name,dName:"Dr. Sanjay Singhania",sDate:"1/1/2020"});
+          console.log(this.name,this.drname,this.date);
+          this.$emit('uname',{uName:this.name,email:this.email,dName:this.drname,sDate:this.date});
       },
       async checkUser(){
         // console.log(this.name);
         // console.log(this.$emit('updateusername'));
-          var nm="Guest"
+          var nm="Guest";
+          var dn="";
+          var sdt="";
            await auth.signInWithEmailAndPassword(this.email,this.password).then(
         (user) => {
 
-          this.$loggedin =true;
-          console.log(this.$loggedin);
-          console.log(user);
-          // this.name=
           console.log(user);
           var mam=this.email;
-
           names.on("value", function (snapshot) {
         snapshot.forEach(function (childsnapshot) {
           var data = childsnapshot.val();
@@ -178,7 +133,8 @@ export default {
             console.log("inside if");
             console.log(data.name);
               nm=data.name;
-
+              dn=data.drname;
+              sdt=data.date;
           }
         })
         })
@@ -192,6 +148,8 @@ export default {
       );
       console.log("from checkuser");
       this.name=nm;
+      this.drname=dn;
+      this.date=sdt;
       console.log(this.name);
       console.log(nm);
       // var p = [{ name: "", email: "" }];

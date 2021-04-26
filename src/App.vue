@@ -62,7 +62,7 @@
        <Login @uname="uname"/>
   </div>
   <div v-else-if="show==0">
-      <Home v-bind:doctor="doctor" v-bind:sDate="sDate"/>
+      <Home v-bind:name="username" v-bind:email="email" v-bind:doctor="doctor" v-bind:sDate="sDate"/>
    </div>
    <div v-else-if="show==3">
      <Survey/>
@@ -105,6 +105,7 @@ export default {
   data(){
     return {
       username:"Guest",
+      email:"",
       show:0,
       doctor: "Not Assigned",
       sDate: "Not Scheculed"
@@ -115,15 +116,18 @@ export default {
 
   },
   methods :{
-    uname({uName,dName,sDate}){
+    uname({uName,email,dName,sDate}){
       console.log("insidechangename");
         this.username=uName;
+        this.email=email;
         this.doctor=dName;
         this.sDate=sDate;
         console.log(this.date);
         console.log("from uname");
         console.log(this.doctor);
         this.show=!this.show;
+        console.log("from App");
+        console.log(this.email);
     },
     fun(){
       this.show=1;

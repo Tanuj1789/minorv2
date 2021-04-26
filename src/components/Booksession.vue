@@ -1,3 +1,4 @@
+
 <template>
         <div >
         <nav>
@@ -9,11 +10,10 @@
           </ul>
           </nav>
           <br>
-        <form  class="flex-column">
-        <input type="name" placeholder="Doctor name" v-model="name"/>
-        <input type="type" placeholder="Doctor Type" v-model="name"/>
-        <input type="date" placeholder="date" >
-        <div style="margin-top:10%;margin-left:50%; ">
+        <form  v-on:submit="saveTherapist" class="flex-column">
+        <input type="text" placeholder="Doctor name" v-model="drname"/>
+        <input type="date" id="start" v-model="date" name="trip-start" value="yyyy-mm-dd" min="2000-01-01" max="2022-12-31"/>
+        <div style="margin-top:10%;margin-left:50%;">
         <button>
         Submit </button>
         </div>
@@ -21,44 +21,40 @@
         </div>
 </template>
 <script>
+import {names } from "../firebase";
 export default {
   name: "Booksession",
   data() {
     return {
-      name: "",
-      type: "",
+      drname: "",
       date: ""
-
     };
   },
+  props:['email','name'],
   methods: {
-    async login() {
-      const { name,type,date } = this;
-      const res = await fetch(
-        "https://SomberHandsomePhysics--five-nine.repl.co/register",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json"
-          },
-          body: JSON.stringify({
+      saveTherapist:
+      function (e)
+      {
+        e.preventDefault();
+        console.log("adding new user");
+        names.push({
+            name: this.name,
+            email: this.email,
+            drname:this.drname,
+            date: this.date,
+          });
+          this.$emit('udoctor',{doctor:this.drname,sDate:this.date})
 
-            name,
-            type,
-            date
-          })
-        }
-      );
-      const data = await res.json();
-      console.log(data);
-    }
-  }
-};
+      },
+  },
+}
 </script>
+
 <style scoped>
 h3 {
   margin: 40px 0 0;
 }
+
 ul {
   list-style-type: none;
   padding: 0;
@@ -147,6 +143,7 @@ input {
     #232526
   ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
+
 textarea {
   width: 100%;
   border-radius: 5%;
@@ -225,10 +222,4 @@ button:hover{
   background:grey;
   color: #fff;
 }
-  /*
-  button span{
-    opacity: 1;
-    visibility: visible;
-    transition: all .35s;
-  } */
 </style>

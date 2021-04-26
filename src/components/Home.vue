@@ -57,17 +57,20 @@
     </nav>
       </div>
       <div v-else style="display:flex; flex-direction:column;justify-content:center;flex-grow:1">
-        {{doctor}}
+        {{dr}}
         <br>
-        {{sDate}}
+        {{sd}}
         <nav>
            <ul>
          <li @click="updateshow">
-        <router-link to="Booksession" >Change Details</router-link>
+           Book Session
       <span></span><span></span><span></span><span></span>
     </li>
     </ul>
     </nav>
+    <div v-if="show==true">
+      <Booksession v-bind:email="email" v-bind:name="name" @udoctor="udoctor" />
+      </div>
       </div>
     </div>
 
@@ -76,22 +79,26 @@
   <router-view></router-view>
   </div>
     </div>
-      
+
   </div>
 
 </template>
 
 <script>
+import Booksession from './Booksession.vue';
 
 export default {
 
   name: 'Home',
-  props: ['doctor','sDate']
+  props: ['name','email','doctor','sDate']
 ,
+
   components:{
+    Booksession,
 
   },
   methods:{
+
     fun()
     {
       console.log("printing doctor");
@@ -100,20 +107,30 @@ export default {
     },
     updateshow()
     {
-      if(this.doctor!="Not Assigned")
-          this.show=!this.show;
-    }
+      this.show=1;
+      console.log("From Home", this.email);
+
+    },
+      udoctor({doctor,sDate}){
+      console.log("insidechangename");
+
+        this.dr=doctor;
+        this.sd=sDate;
+        this.show=!this.show;
+    },
+
   },
   data(){
     return {
       show:false,
+      dr:this.doctor,
+      sd:this.sDate,
       urlmeditation: "https://markmanson.net/meditation/",
       urlremote: "https://www.flexjobs.com/employer-blog/how-companies-can-use-meditation/",
       urlstress: "https://www.berries.com/blog/stress-relief-activities",
       urlsleep: "https://www.psycom.net/sleep-deprivation-test/",
     }
   },
-
 
 }
 </script>
@@ -147,7 +164,6 @@ a {
   /* padding:1%; */
 }
 .bigimage{
-  background-image: url('D:\\Programming\\minorv1\\src\\assets\\panda.png');
   background-repeat: no-repeat;
   min-height:40vh;
   min-width:20% ;
@@ -166,6 +182,4 @@ a {
     justify-content: space-around;
     flex-grow:1;
 }
-
-
 </style>
