@@ -164,6 +164,7 @@ a {
   /* padding:1%; */
 }
 .bigimage{
+  background-image: url("D:\\Programming\\minorv2\\src\\assets\\panda.png");
   background-repeat: no-repeat;
   min-height:40vh;
   min-width:20% ;

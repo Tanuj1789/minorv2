@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+  <div class="flex-column" >
   <div class="flex-row flex-wrap" >
   <div>
     <nav>
@@ -57,7 +58,8 @@
   </div>
 
   </div>
-  <hr style="height:2px colour:black">
+  <!-- <hr style="height:2px colour:black"> -->
+  <div >
   <div  v-if="show==1" >
        <Login @uname="uname"/>
   </div>
@@ -81,7 +83,8 @@
    <div v-else>
       <Sospage/>
    </div>
-
+   </div>
+  </div>
   </div>
 
 </template>
@@ -190,6 +193,10 @@ background: linear-gradient(to right, #ffd194, #70e1f5); /* W3C, IE 10+/ Edge, F
 
 
 }
+.flex-column{
+  display:flex;
+  flex-direction: column;
+}
 .flex-wrap{
   flex-wrap:wrap;
 }
@@ -212,10 +219,10 @@ body {
   height:100%;
   width:100%;
   background: #0a020e;
-  background:
-    radial-gradient(
-     at center, #3498db, #9b59b6
-    );
+  background:url("D:\\Programming\\minorv2\\src\\assets\\bg1.jpeg");
+  /* background-repeat: no-repeat; */
+  /* background-size: cover; */
+
 }
 
 nav ul {
